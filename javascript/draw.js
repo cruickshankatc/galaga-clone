@@ -42,12 +42,13 @@ function draw() {
   * resets.
   */
 theBugs.forEach((bug, index) => { 
+    //Gives the bugs a wider hitbox
     if (
         missile && 
         firing2 >= bug.x - 12.5 && 
         firing2 <= bug.x + 12.5 && 
-        firing >= bug.y2 - 12.5 && 
-        firing <= bug.y2 + 12.5
+        firing >= bug.y - 12.5 && 
+        firing <= bug.y + 12.5
        )
      {
         if (bug.color === "#00FF00") {
@@ -96,14 +97,7 @@ theBugs.forEach((bug, index) => {
   theBugs.forEach((bug, i) => {
     fill(bug.color);
     ellipseMode(CENTER);
-    
-    if (bug.goingDown === false && bug.goingUp === false) {
-      ellipse(bug.x, bug.y2, 25);
-    } else if (bug.goingDown === true && bug.goingUp === false) {
-      ellipse(bug.x, bug.y2, 25);
-    } else if (bug.goingDown === false && bug.goingUp ===  true) {
-      ellipse(bug.x, bug.y2, 25);
-    }
+    ellipse(bug.x, bug.y, 25);
   });
   
 
@@ -130,35 +124,14 @@ theBugs.forEach((bug, index) => {
   * the rest of the hive once it gets high enough.
   */
   
-  for (i = 0; i < theBugs.length; i++) {
-    if (theBugs[i].y2 >= 400) {
-      chongu(theBugs[i]);
-    } else if (theBugs[i].x4 >= theBugs[i].x2 &&             theBugs[i].y2 <= 5) {
-      chase(theBugs[i]);
+  theBugs.forEach(bug => {
+    if (bug.y >= 400) {
+      chongu(bug);
+    } else if (bug.x >= bug.x2 && bug.y <= 5) {
+      chase(bug);
     }
-    
+  })
   
-   } 
-}
-
-function johnson() {
-  console.log(theBugs.length);
-}
-
-setInterval(johnson, 3000);
-
-let intervalID;
-
-function startOrStopInterval() {
-    let anyBugGoingDownOrUp = theBugs.some(bug => !bug.goingDown || !bug.goingUp);
-    if (anyBugGoingDownOrUp) {
-        if (!intervalID) {
-            intervalID = setInterval(chimmy, 3000);
-        }
-    } else {
-        clearInterval(intervalID);
-        intervalID = undefined;
-    }
 }
 
 // Call the function initially
