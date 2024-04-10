@@ -27,12 +27,20 @@ theBugs.forEach(bug => {
   //within a certain range. y2 is a fixed number.
   bug.x = 0;
   bug.x2 = 0;
+  bug.x3 = 0;
   bug.y = 0;
   bug.y2 = 0;
   
   //holds the color of the bug. bugs are assigned color
   //depending upon their number in the array.
   bug.color = undefined;
+  
+  //bugs are categorized depending on whether (in their
+  //default positions) they are closer to the left or 
+  //right side of the screen. Needed for setting the 
+  //animation patterns.
+  bug.leftAligned = undefined;
+  bug.rightAligned = undefined;
 })
 
 
@@ -40,17 +48,16 @@ theBugs.forEach(bug => {
 * Deals with the fly down animations for the bugs
 */
 theBugs.forEach(bug => {
-  bug.flyingDown = function() {
+  bug.inMotion = function() {
     //Regulates the speed the bug falls at
     if (this.goingDown) {
-      this.y += 5.6;
+      bug.flyDown(bug);   
     //Regulates the speed the bug rises at
-    } else if (!this.goingDown && this.goingUp) {
-      this.y -= 1.6;
+    } else if (this.goingUp && !this.goingDown) {
+      bug.flyUp(bug);
     }
   };
 });
-
 
 /**
 * Handles the distribution of bugs into x rows and y
@@ -81,15 +88,29 @@ for (let i = 0; i < theBugs.length; i++) {
 }
 
 /**
-* Assigns the different colors to the different bugs
+* Assigns the different colors to the different bugs.
+* Also, assigns properties to other bugs according to
+* their color.
 */
 for (let i = 0; i < theBugs.length; i++) {
   if (i < 4) {
     theBugs[i].color = "#00FF00"; // Green
+    theBugs[i].name = "Green Bug";
+    theBugs[i].bottomPoint = 425;
+    theBugs[i].flyDown = greenBugFlyDown;
+    theBugs[i].flyUp = greenBugFlyUp;
   } else if (i < 20) {
     theBugs[i].color = "#FF0000"; // Red
+    theBugs[i].name = "Red Bug";
+    theBugs[i].bottomPoint = 425;
+    theBugs[i].flyDown = redBugFlyDown;
+    theBugs[i].flyUp = redBugFlyUp;
   } else {
     theBugs[i].color = "#0000FF"; // Blue
+    theBugs[i].name = "Blue Bug";
+    theBugs[i].bottomPoint = 400;
+    theBugs[i].flyDown = blueBugFlyDown;
+    theBugs[i].flyUp = blueBugFlyUp;
   }
 }
 
@@ -100,4 +121,16 @@ for (let i = 0; i < theBugs.length; i++) {
 */
 theBugs.forEach(bug => {
   bug.y = bug.y2;
+  bug.fallPos = -100;
+})
+
+//Assigns the left or right alignment
+theBugs.forEach(bug => {
+  if (bug.x <= 150) {
+    bug.leftAligned = true;
+    bug.rightAligned = false;
+  } else if (bug.x >= 150) {
+    bug.leftAligned = false;
+    bug.rightAligned = true;
+  }
 })

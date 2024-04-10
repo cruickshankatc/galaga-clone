@@ -9,9 +9,9 @@ function createShip(x, y) {
     x: x,
     y: y,
     design: function() {
-        rectMode(CENTER);
-        rect(this.x, this.y, 50, 20);
-        rect(this.x, this.y - 20, 15, 20);    
+      rectMode(CENTER);
+      rect(this.x, this.y, 50, 20);
+      rect(this.x, this.y - 20, 15, 20);    
     }
   };
 }

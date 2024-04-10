@@ -18,7 +18,7 @@ function draw() {
   * reaches "0"
   */
   fill(255, 255, 255);
-  if (spacePressed) {
+  if (spacePressed && !gameOver) {
     rect(firing2, firing, missile.l, missile.w);
     firing -= motion;
   } else if (!spacePressed) {
@@ -69,8 +69,10 @@ theBugs.forEach((bug, index) => {
   /**
   * Calls drawShip() and moveShip() from ship.js
   */ 
-  drawShip();
-  moveShip();
+  if (!gameOver) {
+    drawShip();
+    moveShip();
+  }
   
   /**
   * Controls the speed at which the bugs move back and       * forth along with the overall distance they cover.
@@ -111,10 +113,15 @@ theBugs.forEach((bug, index) => {
     textAlign(CENTER, CENTER);
     fill(255); 
     text("Swag!", width/2, height/2);
+  } else if (gameOver) {
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    fill(255); 
+    text("Game Over!", width/2, height/2);    
   }
   
   for (i = 0; i < theBugs.length; i++) {
-    theBugs[i].flyingDown();
+    theBugs[i].inMotion();
   }
   
   /**
@@ -125,9 +132,16 @@ theBugs.forEach((bug, index) => {
   */
   
   theBugs.forEach(bug => {
-    if (bug.y >= 400) {
+    if (bug.y >= bug.bottomPoint) {
       chongu(bug);
-    } else if (bug.x >= bug.x2 && bug.y <= 5) {
+    } else if (
+      ((bug.x === bug.x2 && bug.y >= bug.y2) &&
+      bug.name === "Red Bug") || 
+      ((bug.x === bug.x2 && bug.y >= bug.y2) &&
+      bug.name === "Green Bug") ||
+      ((bug.x === bug.x2 && bug.y <= bug.y2) &&
+      bug.name === "Blue Bug") 
+    ) {
       chase(bug);
     }
   })

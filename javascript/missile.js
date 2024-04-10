@@ -33,7 +33,7 @@ function keyPressed() {
     spacePressed = true;
     firing2 = ship.x;
   } else if (keyCode === 88) {
-    theBugs.splice(22, 1);
+    gameOver = true;
   }
 }
 
