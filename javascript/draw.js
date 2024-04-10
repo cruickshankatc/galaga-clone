@@ -49,18 +49,19 @@ theBugs.forEach((bug, index) => {
         firing2 <= bug.x + 12.5 && 
         firing >= bug.y - 12.5 && 
         firing <= bug.y + 12.5
-       )
-     {
-        if (bug.color === "#00FF00") {
-            bug.color = "#7D00FF"
-            spacePressed = false;
-        } else {
-            theBugs[index].goingDown = false;
-            theBugs[index].goingUp = false;
-            theBugs.splice(index, 1);
-            spacePressed = false;
-        }
-    }
+       ) {
+         bugsCollision(bug, index);
+       } else if (
+        !gameOver &&
+        ship.x - 25 < bug.x + 12.5 &&
+        ship.x + 25 > bug.x - 12.5 &&
+        ship.y - 10 < bug.y + 12.5 &&
+        ship.y + 10 > bug.y - 12.5
+     ) {
+        console.log("thing2")
+        bugsCollision(bug, index);
+        gameOver = true;
+     }
     if (!bug.goingDown && !bug.goingUp) {
       bug.x = bug.x2;
     }
@@ -146,6 +147,10 @@ theBugs.forEach((bug, index) => {
     }
   })
   
+  if (gameOver) {
+    clearInterval(intervalID);
+    intervalID = undefined;
+  }
 }
 
 // Call the function initially
