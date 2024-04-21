@@ -44,6 +44,7 @@ function draw() {
 theBugs.forEach((bug, index) => { 
     //Gives the bugs a wider hitbox
     if (
+        spacePressed &&
         missile && 
         firing2 >= bug.x - 12.5 && 
         firing2 <= bug.x + 12.5 && 
@@ -58,7 +59,6 @@ theBugs.forEach((bug, index) => {
         ship.y - 10 < bug.y + 12.5 &&
         ship.y + 10 > bug.y - 12.5
      ) {
-        console.log("thing2")
         bugsCollision(bug, index);
         gameOver = true;
      }
@@ -134,7 +134,7 @@ theBugs.forEach((bug, index) => {
   
   theBugs.forEach(bug => {
     if (bug.y >= bug.bottomPoint) {
-      chongu(bug);
+      motionPhase2(bug);
     } else if (
       ((bug.x === bug.x2 && bug.y >= bug.y2) &&
       bug.name === "Red Bug") || 
@@ -143,7 +143,7 @@ theBugs.forEach((bug, index) => {
       ((bug.x === bug.x2 && bug.y <= bug.y2) &&
       bug.name === "Blue Bug") 
     ) {
-      chase(bug);
+      motionPhase3(bug);
     }
   })
   
@@ -151,6 +151,7 @@ theBugs.forEach((bug, index) => {
     clearInterval(intervalID);
     intervalID = undefined;
   }
+  
 }
 
 // Call the function initially

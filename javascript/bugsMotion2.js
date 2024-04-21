@@ -5,7 +5,7 @@ function startOrStopInterval() {
     let anyBugGoingDownOrUp = theBugs.some(bug => !bug.goingDown || !bug.goingUp);
     if (anyBugGoingDownOrUp && !gameOver) {
         if (!intervalID) {
-            intervalID = setInterval(chimmy, 3000);
+            intervalID = setInterval(motionPhase1, 3000);
         }
     } else {
         clearInterval(intervalID);

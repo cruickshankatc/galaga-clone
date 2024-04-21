@@ -4,7 +4,6 @@ function greenBugFlyDown(bug) {
   
     if (bug.y >= bug.bottomPoint) {
       bug.fallPos = -100;
-      console.log("chimmy")
     } else if (bug.x >= (bug.x3 + 25)) {
       bug.speed = bug.speed * -1;
     } else if (bug.x <= (bug.x3 - 25)) {
@@ -18,7 +17,6 @@ function redBugFlyDown(bug) {
     
     if (bug.y >= bug.bottomPoint) {
       bug.fallPos = -100;
-      console.log("chimmy")
     } else if (bug.x >= (bug.x3 + 25)) {
       bug.speed = bug.speed * -1;
     } else if (bug.x <= (bug.x3 - 25)) {
