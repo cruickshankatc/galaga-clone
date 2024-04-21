@@ -4,6 +4,11 @@
 *
 * Also, gives each bug a property called "goingDown"
 */
+
+/**
+ * Creates an array called theBugs[] and then fills that
+ * array with 40 empty
+ */
 let theBugs = [];
 
 //Fills the theBugs with 40 empty objects
