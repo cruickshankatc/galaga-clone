@@ -1,5 +1,3 @@
-//editing starts now
-
 let firing = 320; 
 
 function draw() {
@@ -25,7 +23,9 @@ function draw() {
     firing = missile.y;
   }
  /**
-  * Simply console logs the length of theBugs[] for         * testing purposes. On collision with objects from         * theBugs[] and object in the array is removed.
+  * Simply console logs the length of theBugs[] for         
+  * testing purposes. On collision with objects from         
+  * theBugs[] and object in the array is removed.
   */
   if (firing <= 0) {
     spacePressed = false;
@@ -33,7 +33,8 @@ function draw() {
   
   /**
   * Deals with collisions with the missile and items in   
-  * theBugs[] to ensure that when the missile's               * coordinates match a bug that bug is spliced.
+  * theBugs[] to ensure that when the missile's               
+  * coordinates match a bug that bug is spliced.
   * 
   * When a green bug is hit, they are not spliced. Instead,
   * their color simply changes to purple.
@@ -76,12 +77,14 @@ theBugs.forEach((bug, index) => {
   }
   
   /**
-  * Controls the speed at which the bugs move back and       * forth along with the overall distance they cover.
+  * Controls the speed at which the bugs move back and       
+  * forth along with the overall distance they cover.
   */
   theBugs.forEach(bug => bug.x2 += 0.3 * direction);
   
   /**
-  * Determines the speed at which the distance the ships     * can move back and forth from. The if statement then
+  * Determines the speed at which the distance the ships     
+  * can move back and forth from. The if statement then
   * simply makes sure they go the other way once they 
   * reach their limit.
   */
@@ -93,7 +96,8 @@ theBugs.forEach((bug, index) => {
   }
   
   /**
-  * Loops through the theBugs[] and assigns a fill value     * for each bug and then draws them.
+  * Loops through the theBugs[] and assigns a fill value     
+  * for each bug and then draws them.
   * If the bug is within different ranges it gets different
   * colors but is still nonetheless drawn.
   */

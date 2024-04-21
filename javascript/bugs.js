@@ -1,63 +1,58 @@
-/**
-* Creates an array called theBugs[] and then fills that
-* array with 40 empty objects
-*
-* Also, gives each bug a property called "goingDown"
-*/
 
-/**
- * Creates an array called theBugs[] and then fills that
- * array with 40 empty
- */
+//Array for the enemies or 'bugs'
 let theBugs = [];
 
-//Fills the theBugs with 40 empty objects
+//Fills theBugs[] with 40 empty objects and needed properties
+//These properties are defined and changed in loops and functions
 for (i = 0; i < 40; i++) {
-  theBugs.push({});
-}
+  theBugs.push({
+  //Check if bugs are in motion
+  goingDown: false,
+  goingUp: false,
+  
+  //Position of the bug
+  x: 0,
+  y: 0,
 
-//Creates the necessary properties for the object
-theBugs.forEach(bug => {
-  //goingDown and goingUp are simple booleans used to
-  //see if the bug is the state of motion. Monitoring
-  //the bug's state of motion is important in determining
-  //which actions must be performed upon it.
-  bug.goingDown = false;
-  bug.goingUp = false;
+  //Holds or marks key positions that bug's must return to
+  x2: 0,
+  x3: 0,
+  y2: 0,
   
-  //x and y are the positions of the bugs at any point
-  //whether in motion or in the hive. x2 and y2 simply
-  //hold the positions of the bugs in accordance to 
-  //their place in the hive. x2 is moves back and forth
-  //within a certain range. y2 is a fixed number.
-  bug.x = 0;
-  bug.x2 = 0;
-  bug.x3 = 0;
-  bug.y = 0;
-  bug.y2 = 0;
+  //Bugs are given distinct characteristics depending on color. 
+  color: undefined,
+
+  //Gives the bug a name based on their color
+  name: undefined,
   
-  //holds the color of the bug. bugs are assigned color
-  //depending upon their number in the array.
-  bug.color = undefined;
+  //Divides the bugs depending on whether they are closer to the left or right
+  //Important for the animations
+  leftAligned: undefined,
+  rightAligned: undefined,
+
+  flyUp: undefined,
+  flyDown: undefined,
   
-  //bugs are categorized depending on whether (in their
-  //default positions) they are closer to the left or 
-  //right side of the screen. Needed for setting the 
-  //animation patterns.
-  bug.leftAligned = undefined;
-  bug.rightAligned = undefined;
-})
+  //Determines the point at which, after flying down, a bug should fly back up.
+  //Relates to the y value
+  bottomPoint: undefined,
+
+  fallPos: -100,
+  });
+}
 
 
 /**
-* Deals with the fly down animations for the bugs
-*/
+ * Deals with the fly down animations for the bugs.
+ * Each time a bug flies down they do so at a different speed that is 
+ * randomly generated.
+ */
 theBugs.forEach(bug => {
   bug.inMotion = function() {
-    //Regulates the speed the bug falls at
+    //Regulates the falling speed
     if (this.goingDown) {
       bug.flyDown(bug);   
-    //Regulates the speed the bug rises at
+    //Regulates the rising speed
     } else if (this.goingUp && !this.goingDown) {
       bug.flyUp(bug);
     }
@@ -65,37 +60,45 @@ theBugs.forEach(bug => {
 });
 
 /**
-* Handles the distribution of bugs into x rows and y
-* columns.
-*/
+ * Handles the layout of the bugs.
+ * 
+ * The x and y values are used for the bugs' motion.
+ * 
+ * The x2 and y2 values are used to hold consistent positions for the x and y values
+ * to return to. Therefore x2 and y2 are set equal to x and y's default positions.
+ */
 for (let i = 0; i < theBugs.length; i++) {
   if (i < 4) {
     theBugs[i].x = 125 + i * 25;
     theBugs[i].x2 = theBugs[i].x;
     theBugs[i].y2 = 50;
+    theBugs[i].y = theBugs[i].y2;
   } else if (i < 12) {
     theBugs[i].x = -25 + i * 25;
     theBugs[i].x2 = theBugs[i].x;
     theBugs[i].y2 = 75;
+    theBugs[i].y = theBugs[i].y2;
   } else if (i < 20) {
     theBugs[i].x = -225 + i * 25;
     theBugs[i].x2 = theBugs[i].x;
     theBugs[i].y2 = 100;
+    theBugs[i].y = theBugs[i].y2;
   } else if (i < 30) {
     theBugs[i].x = -450 + i * 25;
     theBugs[i].x2 = theBugs[i].x;
-    theBugs[i].y2 = 125;      
+    theBugs[i].y2 = 125;
+    theBugs[i].y = theBugs[i].y2;      
   } else if (i < 40) {
     theBugs[i].x = -700 + i * 25;
     theBugs[i].x2 = theBugs[i].x;
-    theBugs[i].y2 = 150;      
+    theBugs[i].y2 = 150; 
+    theBugs[i].y = theBugs[i].y2;     
   }
 }
 
 /**
-* Assigns the different colors to the different bugs.
-* Also, assigns properties to other bugs according to
-* their color.
+* Assigns different colors to the different bugs.
+* Also, assigns properties to  bugs according to their color.
 */
 for (let i = 0; i < theBugs.length; i++) {
   if (i < 4) {
@@ -118,16 +121,6 @@ for (let i = 0; i < theBugs.length; i++) {
     theBugs[i].flyUp = blueBugFlyUp;
   }
 }
-
-/**
-* Assigns to y2 (which will be used to determine the
-* bug's position in draw.js) the same positions as y,
-* which are simply the default positions.
-*/
-theBugs.forEach(bug => {
-  bug.y = bug.y2;
-  bug.fallPos = -100;
-})
 
 //Assigns the left or right alignment
 theBugs.forEach(bug => {
